@@ -150,18 +150,38 @@ nav.navgroup{margin-bottom:18px}
 }
 .tiktok-row a:hover{color:var(--fg); border-color:var(--line2)}
 
-/* ---------- Coordonnées ---------- */
-.contact-card{
-  border:1px solid var(--line); border-radius:16px; background:var(--panel); padding:26px 26px 22px;
-}
-.contact-card h2{font-size:1.25rem; margin-bottom:6px}
-.contact-card > p{color:var(--muted); font-size:.9rem; margin:0 0 20px; max-width:50ch}
-.fields{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px}
-.field label{display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:6px}
-.field .val{
-  font-size:.95rem; color:var(--dim); font-style:italic; padding:10px 0; border-bottom:1px dashed var(--line2);
-}
 .foot{color:var(--dim); font-size:.74rem; margin-top:40px}
+
+/* ---------- Popup réseaux ---------- */
+.social-overlay{
+  display:none; position:fixed; inset:0; background:rgba(5,6,10,.65); z-index:60;
+  align-items:center; justify-content:center; padding:20px;
+}
+.social-overlay.open{display:flex}
+.social-modal{
+  width:100%; max-width:340px; background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  padding:20px; position:relative;
+}
+.social-modal h3{font-size:1.05rem; margin-bottom:4px}
+.social-modal .sub{color:var(--dim); font-size:.82rem; margin:0 0 16px}
+.social-close{
+  position:absolute; top:14px; right:14px; width:28px; height:28px; border-radius:50%;
+  background:var(--panel2); display:flex; align-items:center; justify-content:center; color:var(--muted);
+}
+.social-close:hover{color:var(--fg)}
+.social-list{display:flex; flex-direction:column; gap:8px}
+.social-link{
+  display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:11px; background:var(--panel2);
+  border:1px solid var(--line); text-decoration:none; color:var(--fg); font-size:.9rem;
+}
+.social-link:hover{border-color:var(--accent)}
+.social-link .sic{
+  width:34px; height:34px; border-radius:9px; background:var(--bg2); display:flex; align-items:center;
+  justify-content:center; flex:none;
+}
+.social-link .sic svg{width:17px; height:17px; stroke:var(--accent)}
+.social-link .stxt b{display:block; font-weight:600; font-size:.88rem}
+.social-link .stxt span{display:block; color:var(--dim); font-size:.78rem}
 
 @media(max-width:860px){
   .sidebar{display:none}
@@ -207,10 +227,10 @@ nav.navgroup{margin-bottom:18px}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="8" height="8" rx="1.5"/><rect x="13" y="4" width="8" height="8" rx="1.5"/><rect x="3" y="14" width="8" height="6" rx="1.5"/><rect x="13" y="14" width="8" height="6" rx="1.5"/></svg>
         Mes projets
       </a>
-      <a class="navitem" href="#contact">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        Coordonnées
-      </a>
+      <button class="navitem" id="socialBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></svg>
+        Réseaux
+      </button>
     </nav>
 
     <nav class="navgroup">
@@ -367,20 +387,31 @@ nav.navgroup{margin-bottom:18px}
         <a href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">↗ Tous les montages sur TikTok — @tahzio</a>
       </p>
 
-      <div id="contact" class="contact-card">
-        <h2>Coordonnées</h2>
-        <p>À compléter — remplace les valeurs ci-dessous par tes vraies infos directement dans le fichier.</p>
-        <div class="fields">
-          <div class="field"><label>Email</label><p class="val">ton.email@exemple.com</p></div>
-          <div class="field"><label>Téléphone</label><p class="val">06 00 00 00 00</p></div>
-          <div class="field"><label>TikTok</label><p class="val">@tahzio</p></div>
-          <div class="field"><label>Autre réseau</label><p class="val">à compléter</p></div>
-        </div>
-      </div>
-
       <p class="foot">06h13 — studio de montage vidéo</p>
     </div>
   </main>
+</div>
+
+<div class="social-overlay" id="socialOverlay">
+  <div class="social-modal">
+    <button class="social-close" id="socialClose" type="button" aria-label="Fermer">✕</button>
+    <h3>Réseaux</h3>
+    <p class="sub">06h13, ailleurs.</p>
+    <div class="social-list">
+      <a class="social-link" href="https://www.instagram.com/fucklurssaf" target="_blank" rel="noopener">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></span>
+        <span class="stxt"><b>Instagram</b><span>@fucklurssaf</span></span>
+      </a>
+      <a class="social-link" href="https://twitter.com/06h13am" target="_blank" rel="noopener">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M4 4l16 16M20 4L4 20"/></svg></span>
+        <span class="stxt"><b>Twitter / X</b><span>06h13am</span></span>
+      </a>
+      <a class="social-link" href="mailto:contact@06h13.fr">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <span class="stxt"><b>Mail</b><span>contact@06h13.fr</span></span>
+      </a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -395,5 +426,13 @@ nav.navgroup{margin-bottom:18px}
   burger.addEventListener('click', function(){ toggle(!sidebar.classList.contains('open')); });
   scrim.addEventListener('click', function(){ toggle(false); });
   sidebar.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ toggle(false); }); });
+
+  var socialBtn = document.getElementById('socialBtn');
+  var socialOverlay = document.getElementById('socialOverlay');
+  var socialClose = document.getElementById('socialClose');
+  function toggleSocial(open){ socialOverlay.classList.toggle('open', open); }
+  socialBtn.addEventListener('click', function(){ toggle(false); toggleSocial(true); });
+  socialClose.addEventListener('click', function(){ toggleSocial(false); });
+  socialOverlay.addEventListener('click', function(e){ if(e.target === socialOverlay) toggleSocial(false); });
 })();
 </script>
