@@ -20,7 +20,7 @@ body{
 }
 .mono{font-family:'JetBrains Mono','Space Grotesk',monospace; font-variant-numeric:tabular-nums}
 a{color:inherit}
-button{font:inherit; color:inherit; background:none; border:0; cursor:pointer}
+button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; text-align:left; -webkit-appearance:none; appearance:none; width:auto}
 h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0}
 
 #app{display:flex; min-height:100dvh}
@@ -42,7 +42,7 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0}
   width:38px; height:38px; border-radius:50%; flex:none;
   background:linear-gradient(145deg, var(--accent), #7A0D14);
   box-shadow:0 0 14px rgba(232,34,47,.55);
-  display:flex; align-items:center; justify-content:center; font-weight:700; color:#FFEAEA; font-family:'Space Grotesk',sans-serif;
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.82rem; color:#FFEAEA; font-family:'Space Grotesk',sans-serif;
 }
 .profile .who{min-width:0}
 .profile .name{font-weight:600; font-size:.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -149,12 +149,6 @@ nav.navgroup{margin-bottom:18px}
 .proj-cap .name{font-size:.85rem; font-weight:600; margin:0 0 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .proj-cap .meta{font-size:.74rem; color:var(--dim); margin:0; display:flex; gap:7px}
 
-.tiktok-row a{
-  display:inline-flex; align-items:center; gap:9px; font-size:.86rem; color:var(--muted);
-  border:1px solid var(--line); padding:9px 15px; border-radius:9px; text-decoration:none; margin-bottom:46px;
-}
-.tiktok-row a:hover{color:var(--fg); border-color:var(--line2)}
-
 .foot{color:var(--dim); font-size:.74rem; margin-top:40px}
 
 /* ---------- Popup réseaux ---------- */
@@ -219,10 +213,10 @@ nav.navgroup{margin-bottom:18px}
     <div class="logo">06h<b>13</b></div>
 
     <div class="profile">
-      <div class="avatar">T</div>
+      <div class="avatar">06</div>
       <div class="who">
-        <p class="name">Tahzio</p>
-        <p class="handle">@tahzio</p>
+        <p class="name">06h13</p>
+        <p class="handle">@SixHeuresTreize</p>
       </div>
     </div>
     <div class="plan"><span class="dot"></span> Studio actif</div>
@@ -232,7 +226,7 @@ nav.navgroup{margin-bottom:18px}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="8" height="8" rx="1.5"/><rect x="13" y="4" width="8" height="8" rx="1.5"/><rect x="3" y="14" width="8" height="6" rx="1.5"/><rect x="13" y="14" width="8" height="6" rx="1.5"/></svg>
         Mes projets
       </a>
-      <button class="navitem" id="socialBtn" type="button">
+      <button class="navitem open-social" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></svg>
         Réseaux
       </button>
@@ -240,10 +234,10 @@ nav.navgroup{margin-bottom:18px}
 
     <nav class="navgroup">
       <p class="navlabel">Créer</p>
-      <a class="navitem" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
+      <button class="navitem open-social" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>
         Nouveau projet
-      </a>
+      </button>
       <span class="navitem disabled">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5.5-5.5L5 21"/></svg>
         Médiathèque
@@ -252,10 +246,10 @@ nav.navgroup{margin-bottom:18px}
 
     <nav class="navgroup">
       <p class="navlabel">Gestion</p>
-      <a class="navitem" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
+      <span class="navitem disabled">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V7a2 2 0 012-2h3l2 2h7a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2z"/></svg>
-        Bibliothèque TikTok
-      </a>
+        Bibliothèque
+      </span>
       <span class="navitem disabled">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/></svg>
         Espaces
@@ -263,25 +257,25 @@ nav.navgroup{margin-bottom:18px}
     </nav>
 
     <div class="sidebar-bottom">
-      <a class="promo" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
+      <button class="promo open-social" type="button">
         <p class="ptime mono">06:13</p>
-        <p>Un projet à monter ? Écris sur TikTok ↗</p>
-      </a>
+        <p>Un projet à monter ? Contacte 06h13 ↗</p>
+      </button>
     </div>
   </aside>
 
   <main class="main">
     <div class="main-inner">
 
-      <a class="banner" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
+      <button class="banner open-social" type="button">
         <div class="bwrap">
           <span class="plus">+</span>
           <div>
             <h1>Lancer un projet</h1>
-            <p>Horizontal, vertical, brut ou storytelling — écris à 06h13 sur TikTok.</p>
+            <p>Horizontal, vertical, brut ou storytelling — contacte 06h13.</p>
           </div>
         </div>
-      </a>
+      </button>
 
       <div class="chips">
         <div class="chip">
@@ -388,10 +382,6 @@ nav.navgroup{margin-bottom:18px}
         </div>
       </div>
 
-      <p class="tiktok-row">
-        <a href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">↗ Tous les montages sur TikTok — @tahzio</a>
-      </p>
-
       <p class="foot">06h13 — studio de montage vidéo</p>
     </div>
   </main>
@@ -432,11 +422,12 @@ nav.navgroup{margin-bottom:18px}
   scrim.addEventListener('click', function(){ toggle(false); });
   sidebar.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ toggle(false); }); });
 
-  var socialBtn = document.getElementById('socialBtn');
   var socialOverlay = document.getElementById('socialOverlay');
   var socialClose = document.getElementById('socialClose');
   function toggleSocial(open){ socialOverlay.classList.toggle('open', open); }
-  socialBtn.addEventListener('click', function(){ toggle(false); toggleSocial(true); });
+  document.querySelectorAll('.open-social').forEach(function(btn){
+    btn.addEventListener('click', function(){ toggle(false); toggleSocial(true); });
+  });
   socialClose.addEventListener('click', function(){ toggleSocial(false); });
   socialOverlay.addEventListener('click', function(e){ if(e.target === socialOverlay) toggleSocial(false); });
 })();
