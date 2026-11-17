@@ -1,182 +1,354 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
-<title>06h13</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<title>06h13 — Mes projets</title>
+<meta name="description" content="06h13, studio de montage vidéo. Projets, exports, brouillons.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Layout : une colonne, scroll vertical. Hero sur l'heure "06:13" comme identité,
-   nuit profonde qui vire au lever du jour en descendant la page. */
 :root{
-  --bg:#0A0D14; --bg2:#0D1019; --fg:#F2F1ED; --muted:#9CA3B5; --line:#232838;
-  --accent:#FF7A50; --accent2:#FFC36B; --card:#10141F;
+  --bg:#0A0D14; --bg2:#0D1019; --panel:#10141F; --panel2:#141928; --fg:#F2F1ED; --muted:#8893A6; --dim:#5A6478;
+  --line:#232838; --line2:#2C3348; --accent:#FF7A50; --accent2:#FFC36B; --ok:#5FD3A0;
   color-scheme: dark;
 }
 *{box-sizing:border-box}
+html,body{height:100%}
 body{
   margin:0; background:var(--bg); color:var(--fg);
-  font-family:'Inter',system-ui,sans-serif; line-height:1.55;
-  padding-left:max(16px, env(safe-area-inset-left,0px));
-  padding-right:max(16px, env(safe-area-inset-right,0px));
+  font-family:'Inter',system-ui,sans-serif; line-height:1.5;
+  overflow:hidden;
 }
-.wrap{max-width:860px; margin:0 auto}
-h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0; text-wrap:balance}
-.mono{font-variant-numeric:tabular-nums}
+.mono{font-family:'JetBrains Mono','Space Grotesk',monospace; font-variant-numeric:tabular-nums}
 a{color:inherit}
+button{font:inherit; color:inherit; background:none; border:0; cursor:pointer}
 
-/* Hero */
-.hero{padding:88px 0 56px; border-bottom:1px solid var(--line)}
-.time{
-  font-family:'Space Grotesk',sans-serif; font-weight:700;
-  font-size:clamp(3.2rem,13vw,6.5rem); letter-spacing:-0.03em;
-  background:linear-gradient(100deg,var(--fg) 15%,var(--accent) 60%,var(--accent2) 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  margin:0 0 6px;
-}
-.kicker{color:var(--muted); font-size:.95rem; letter-spacing:.02em; margin:0 0 18px}
-.pitch{font-size:clamp(1.1rem,2.6vw,1.4rem); max-width:38ch; margin:0 0 28px; color:#DADEE8}
-.tags{display:flex; flex-wrap:wrap; gap:8px}
-.tag{
-  font-size:.82rem; padding:6px 12px; border:1px solid var(--line); border-radius:99px;
-  color:var(--muted); background:var(--bg2);
+#app{
+  display:flex; flex-direction:column; height:100dvh;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-inset-right,0px);
 }
 
-/* Sections */
-section{padding:52px 0; border-bottom:1px solid var(--line)}
-.s-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap}
-.s-head h2{font-size:1.5rem}
-.s-head .count{color:var(--muted); font-size:.9rem; font-family:'Space Grotesk',sans-serif}
-.s-note{color:var(--muted); font-size:.95rem; max-width:55ch; margin:-12px 0 26px}
-
-/* Grilles de formats */
-.grid-h{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px}
-.grid-v{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px}
-
-.card{
-  display:block; text-decoration:none; border:1px solid var(--line); border-radius:14px;
-  background:var(--card); overflow:hidden; transition:border-color .15s ease;
+/* ---------- Barre de titre (chrome logiciel) ---------- */
+.titlebar{
+  display:flex; align-items:center; gap:18px; height:46px; min-height:46px;
+  padding:0 14px; background:var(--panel2); border-bottom:1px solid var(--line);
 }
-.card:hover,.card:focus-visible{border-color:var(--accent)}
-.card:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.dots{display:flex; gap:7px}
+.dots span{width:10px; height:10px; border-radius:50%; background:var(--line2)}
+.appmark{display:flex; align-items:baseline; gap:8px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.92rem; letter-spacing:-.01em}
+.appmark b{color:var(--accent)}
+.menu{display:flex; gap:16px; margin-left:4px}
+.menu span{font-size:.82rem; color:var(--dim); cursor:default; user-select:none}
+.titlebar .clock{margin-left:auto; font-size:.85rem; color:var(--muted)}
 
-.frame-h{aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
-  background:linear-gradient(150deg,#161B29,#0D1019);}
-.frame-v{aspect-ratio:9/16; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
-  background:linear-gradient(200deg,#161B29,#0D1019);}
-.frame-h img, .frame-v img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
-.frame-h::after, .frame-v::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,13,20,0) 55%, rgba(10,13,20,.65) 100%)}
-.play{
-  width:46px; height:46px; border-radius:50%; border:1.5px solid rgba(242,241,237,.35);
-  display:flex; align-items:center; justify-content:center; color:#F2F1ED;
-  position:relative; z-index:1; background:rgba(13,16,25,.5); backdrop-filter:blur(2px);
+/* ---------- Corps : rail + contenu ---------- */
+.workspace{flex:1; display:flex; min-height:0}
+
+.rail{
+  width:64px; min-width:64px; background:var(--panel); border-right:1px solid var(--line);
+  display:flex; flex-direction:column; align-items:center; padding:14px 0; gap:4px;
 }
-.card:hover .play,.card:focus-visible .play{border-color:var(--accent); color:var(--accent)}
-.card-body{padding:14px 16px}
-.card-body .label{font-weight:600; font-size:.98rem; margin:0 0 2px}
-.card-body .meta{color:var(--muted); font-size:.85rem; margin:0}
-
-/* En cours de montage */
-.wip-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px}
-.wip{
-  border:1px dashed var(--line); border-radius:14px; padding:20px; background:var(--bg2);
-  min-width:0;
+.rail-btn{
+  width:46px; height:46px; border-radius:11px; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:4px; color:var(--dim); font-size:.62rem;
 }
-.wip .dot{display:inline-flex; align-items:center; gap:7px; font-size:.82rem; color:var(--accent2); margin-bottom:10px}
-.wip .dot::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--accent2); box-shadow:0 0 0 3px rgba(255,195,107,.18)}
-.wip h3{font-size:1.02rem; margin-bottom:4px}
-.wip p{color:var(--muted); font-size:.9rem; margin:0}
+.rail-btn svg{width:19px; height:19px}
+.rail-btn.active{background:var(--panel2); color:var(--accent)}
+.rail-btn.active svg{stroke:var(--accent)}
+.rail-btn.disabled{opacity:.4; cursor:not-allowed}
+.rail-btn.export{margin-top:auto; color:var(--ok)}
+.rail-btn.export svg{stroke:var(--ok)}
 
-/* Contact */
-.contact{padding:56px 0 80px; border-bottom:none}
-.contact h2{font-size:1.7rem; margin-bottom:10px}
-.contact p{color:var(--muted); max-width:42ch; margin:0 0 22px}
-.btn{
-  display:inline-flex; align-items:center; gap:10px; padding:13px 22px; border-radius:99px;
-  background:var(--accent); color:#1A0F08; font-weight:600; text-decoration:none; font-size:.98rem;
+.main{flex:1; overflow-y:auto; min-width:0}
+.main-inner{max-width:980px; margin:0 auto; padding:30px 22px 48px}
+
+.toolbar{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:6px}
+.toolbar h1{font-family:'Space Grotesk',sans-serif; font-size:1.5rem; margin:0}
+.toolbar .path{color:var(--dim); font-size:.8rem; margin:0 0 6px}
+.toolbar .path b{color:var(--muted); font-weight:500}
+.newproj{
+  display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:9px;
+  background:var(--accent); color:#1A0F08; font-weight:600; font-size:.88rem; text-decoration:none;
+  white-space:nowrap;
 }
-.btn:hover{background:var(--accent2)}
-footer{color:var(--muted); font-size:.82rem; padding-bottom:28px}
+.newproj:hover{background:var(--accent2)}
+.subline{color:var(--muted); font-size:.92rem; max-width:60ch; margin:14px 0 24px}
 
-@media(max-width:520px){ .hero{padding:64px 0 40px} section{padding:40px 0} }
+.filters{display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap}
+.filters button{
+  font-size:.8rem; padding:7px 13px; border-radius:99px; border:1px solid var(--line);
+  color:var(--muted); background:var(--panel);
+}
+.filters button.on{border-color:var(--accent); color:var(--accent); background:rgba(255,122,80,.08)}
+
+/* ---------- Grille de projets ---------- */
+.projects{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px}
+.proj{
+  background:var(--panel); border:1px solid var(--line); border-radius:13px; overflow:hidden;
+  text-decoration:none; display:flex; flex-direction:column; transition:border-color .15s, transform .15s;
+}
+.proj:hover,.proj:focus-visible{border-color:var(--accent); transform:translateY(-1px)}
+.proj:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.thumb{position:relative; background:linear-gradient(155deg,#171D2E,#0D1019); overflow:hidden}
+.proj.fmt-h .thumb{aspect-ratio:16/9}
+.proj.fmt-v .thumb{aspect-ratio:9/16}
+.thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.thumb .scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,13,20,0) 50%, rgba(10,13,20,.7) 100%)}
+.thumb .play{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:40px; height:40px; border-radius:50%; border:1.5px solid rgba(242,241,237,.4);
+  display:flex; align-items:center; justify-content:center; background:rgba(10,13,20,.45); backdrop-filter:blur(2px);
+  font-size:.75rem;
+}
+.proj:hover .play{border-color:var(--accent); color:var(--accent)}
+.badge{
+  position:absolute; top:8px; left:8px; font-size:.68rem; font-weight:600; padding:3px 8px; border-radius:99px;
+  background:rgba(10,13,20,.65); backdrop-filter:blur(2px); letter-spacing:.02em;
+}
+.badge.live{color:var(--ok)}
+.badge.draft{color:var(--accent2)}
+.thumb.draft-thumb{
+  background:
+    repeating-linear-gradient(45deg, rgba(255,195,107,.07) 0 10px, transparent 10px 20px),
+    linear-gradient(155deg,#171D2E,#0D1019);
+  display:flex; align-items:center; justify-content:center;
+}
+.thumb.draft-thumb .pct{font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--dim); font-size:1.1rem}
+.proj-body{padding:11px 13px; border-top:1px solid var(--line)}
+.proj-body .name{font-weight:600; font-size:.92rem; margin:0 0 3px; display:flex; align-items:center; gap:6px}
+.proj-body .meta{color:var(--dim); font-size:.78rem; margin:0; display:flex; justify-content:space-between; gap:8px}
+
+.tiktok-row{margin:26px 0 8px}
+.tiktok-row a{
+  display:inline-flex; align-items:center; gap:9px; font-size:.88rem; color:var(--muted);
+  border:1px solid var(--line); padding:9px 15px; border-radius:9px; text-decoration:none;
+}
+.tiktok-row a:hover{color:var(--fg); border-color:var(--line2)}
+
+.endcap{margin-top:40px; padding-top:22px; border-top:1px solid var(--line)}
+.endcap h2{font-family:'Space Grotesk',sans-serif; font-size:1.15rem; margin:0 0 8px}
+.endcap p{color:var(--muted); font-size:.9rem; max-width:48ch; margin:0 0 16px}
+.endcap .btn{
+  display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:9px;
+  background:var(--accent); color:#1A0F08; font-weight:600; font-size:.88rem; text-decoration:none;
+}
+.endcap .btn:hover{background:var(--accent2)}
+.foot{color:var(--dim); font-size:.74rem; margin-top:30px}
+
+/* ---------- Timeline décorative ---------- */
+.timeline{
+  height:118px; min-height:118px; background:var(--panel2); border-top:1px solid var(--line);
+  display:flex; flex-direction:column; padding:8px 14px 10px; user-select:none;
+}
+.timeline .tl-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px}
+.timeline .tl-label{font-size:.72rem; color:var(--dim)}
+.timeline .ruler{display:flex; justify-content:space-between; font-size:.64rem; color:var(--dim); padding:0 2px}
+.tracks{flex:1; display:flex; flex-direction:column; gap:5px; margin-top:5px; position:relative}
+.track{display:flex; gap:5px; height:20px}
+.clip{
+  border-radius:5px; display:flex; align-items:center; padding:0 9px; font-size:.68rem; font-weight:500;
+  color:rgba(10,13,20,.75); white-space:nowrap; overflow:hidden;
+}
+.playhead{position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--accent); left:38%}
+.playhead::before{content:""; position:absolute; top:-4px; left:50%; transform:translateX(-50%); width:8px; height:8px; border-radius:50%; background:var(--accent)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:720px){
+  .menu{display:none}
+  .timeline{display:none}
+}
+@media(max-width:560px){
+  .rail{width:52px; min-width:52px}
+  .rail-btn{width:40px; height:40px; font-size:.56rem}
+  .main-inner{padding:22px 16px 40px}
+  .toolbar h1{font-size:1.25rem}
+}
 </style>
 
-<div class="wrap">
+<div id="app">
 
-  <header class="hero">
-    <p class="time mono">06:13</p>
-    <p class="kicker">Studio de montage vidéo — Tahzio</p>
-    <p class="pitch">Le montage se fait quand tout le monde dort. 06h13, c'est le moment où un brouillon devient une vidéo qui se regarde deux fois.</p>
-    <div class="tags">
-      <span class="tag">Contenu créateurs</span>
-      <span class="tag">YouTube &amp; Shorts</span>
-      <span class="tag">TikTok</span>
+  <div class="titlebar">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="appmark">06h<b>13</b></div>
+    <div class="menu">
+      <span>Fichier</span><span>Édition</span><span>Affichage</span><span>Aide</span>
     </div>
-  </header>
+    <div class="clock mono" id="clock">06:13</div>
+  </div>
 
-  <section id="horizontal">
-    <div class="s-head">
-      <h2>Format horizontal</h2>
-      <span class="count mono">01</span>
-    </div>
-    <p class="s-note">Montage long format, pensé pour l'écran large : rythme, structure, respiration.</p>
-    <div class="grid-h">
-      <a class="card" href="https://youtu.be/ijZ-YIS3J0k" target="_blank" rel="noopener">
-        <div class="frame-h"><img src="https://i.ytimg.com/vi/ijZ-YIS3J0k/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></div>
-        <div class="card-body">
-          <p class="label">Montage long format</p>
-          <p class="meta">YouTube · 16:9</p>
+  <div class="workspace">
+
+    <nav class="rail" aria-label="Outils">
+      <button class="rail-btn active" title="Mes projets">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="8" height="8" rx="1.5"/><rect x="13" y="4" width="8" height="8" rx="1.5"/><rect x="3" y="14" width="8" height="6" rx="1.5"/><rect x="13" y="14" width="8" height="6" rx="1.5"/></svg>
+        Projets
+      </button>
+      <button class="rail-btn disabled" title="Médiathèque" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5.5-5.5L5 21"/></svg>
+        Médias
+      </button>
+      <button class="rail-btn disabled" title="Texte" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 5h14M12 5v14"/></svg>
+        Texte
+      </button>
+      <button class="rail-btn disabled" title="Musique" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+        Audio
+      </button>
+      <button class="rail-btn disabled" title="Effets" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+        Effets
+      </button>
+      <a class="rail-btn export" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener" title="Contacter 06h13">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        Export
+      </a>
+    </nav>
+
+    <main class="main">
+      <div class="main-inner">
+
+        <div class="toolbar">
+          <div>
+            <p class="path mono">06h13 <b>/ Mes projets</b></p>
+            <h1>Mes projets</h1>
+          </div>
+          <a class="newproj" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">+ Nouveau projet</a>
         </div>
-      </a>
-    </div>
-  </section>
+        <p class="subline">Studio de montage vidéo — Tahzio. Chaque carte est un montage : format, statut, et un clic pour l'ouvrir.</p>
 
-  <section id="vertical">
-    <div class="s-head">
-      <h2>Format vertical</h2>
-      <span class="count mono">03</span>
-    </div>
-    <p class="s-note">Shorts et contenus TikTok : accroche immédiate, montage cut, pensé pour le pouce qui scrolle.</p>
-    <div class="grid-v">
-      <a class="card" href="https://www.youtube.com/shorts/dqSGj_CaK9E" target="_blank" rel="noopener">
-        <div class="frame-v"><img src="https://i.ytimg.com/vi/dqSGj_CaK9E/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></div>
-        <div class="card-body"><p class="label">Short #1</p><p class="meta">YouTube · 9:16</p></div>
-      </a>
-      <a class="card" href="https://www.youtube.com/shorts/Nm1NrIEAGUY" target="_blank" rel="noopener">
-        <div class="frame-v"><img src="https://i.ytimg.com/vi/Nm1NrIEAGUY/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></div>
-        <div class="card-body"><p class="label">Short #2</p><p class="meta">YouTube · 9:16</p></div>
-      </a>
-      <a class="card" href="https://www.youtube.com/shorts/xA28zJRN3MM" target="_blank" rel="noopener">
-        <div class="frame-v"><img src="https://i.ytimg.com/vi/xA28zJRN3MM/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></div>
-        <div class="card-body"><p class="label">Short #3</p><p class="meta">YouTube · 9:16</p></div>
-      </a>
-    </div>
-    <p style="margin-top:18px">
-      <a class="btn" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">Voir tout sur TikTok ↗</a>
-    </p>
-  </section>
+        <div class="filters">
+          <button class="on" type="button">Tous</button>
+          <button type="button">Horizontal</button>
+          <button type="button">Vertical</button>
+          <button type="button">Brouillons</button>
+        </div>
 
-  <section id="wip">
-    <div class="s-head">
-      <h2>En cours de montage</h2>
-    </div>
-    <p class="s-note">Ce qui tourne sur le timeline en ce moment — pas encore livré, déjà en mouvement.</p>
-    <div class="wip-grid">
-      <div class="wip">
-        <span class="dot">En montage</span>
-        <h3>Projet vertical</h3>
-        <p>Étalonnage et sound design en cours.</p>
+        <div class="projects">
+
+          <a class="proj fmt-h" href="https://youtu.be/ijZ-YIS3J0k" target="_blank" rel="noopener">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/ijZ-YIS3J0k/hqdefault.jpg" alt="" loading="lazy">
+              <div class="scrim"></div>
+              <span class="badge live">Exporté</span>
+              <span class="play" aria-hidden="true">▶</span>
+            </div>
+            <div class="proj-body">
+              <p class="name">Montage long format</p>
+              <p class="meta mono"><span>16:9</span><span>YouTube</span></p>
+            </div>
+          </a>
+
+          <a class="proj fmt-v" href="https://www.youtube.com/shorts/dqSGj_CaK9E" target="_blank" rel="noopener">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/dqSGj_CaK9E/hqdefault.jpg" alt="" loading="lazy">
+              <div class="scrim"></div>
+              <span class="badge live">Exporté</span>
+              <span class="play" aria-hidden="true">▶</span>
+            </div>
+            <div class="proj-body">
+              <p class="name">Short #1</p>
+              <p class="meta mono"><span>9:16</span><span>YouTube</span></p>
+            </div>
+          </a>
+
+          <a class="proj fmt-v" href="https://www.youtube.com/shorts/Nm1NrIEAGUY" target="_blank" rel="noopener">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/Nm1NrIEAGUY/hqdefault.jpg" alt="" loading="lazy">
+              <div class="scrim"></div>
+              <span class="badge live">Exporté</span>
+              <span class="play" aria-hidden="true">▶</span>
+            </div>
+            <div class="proj-body">
+              <p class="name">Short #2</p>
+              <p class="meta mono"><span>9:16</span><span>YouTube</span></p>
+            </div>
+          </a>
+
+          <a class="proj fmt-v" href="https://www.youtube.com/shorts/xA28zJRN3MM" target="_blank" rel="noopener">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/xA28zJRN3MM/hqdefault.jpg" alt="" loading="lazy">
+              <div class="scrim"></div>
+              <span class="badge live">Exporté</span>
+              <span class="play" aria-hidden="true">▶</span>
+            </div>
+            <div class="proj-body">
+              <p class="name">Short #3</p>
+              <p class="meta mono"><span>9:16</span><span>YouTube</span></p>
+            </div>
+          </a>
+
+          <div class="proj fmt-v">
+            <div class="thumb draft-thumb">
+              <span class="pct mono">·· ·</span>
+              <span class="badge draft">Brouillon</span>
+            </div>
+            <div class="proj-body">
+              <p class="name">Projet vertical</p>
+              <p class="meta mono"><span>9:16</span><span>étalonnage</span></p>
+            </div>
+          </div>
+
+          <div class="proj fmt-h">
+            <div class="thumb draft-thumb">
+              <span class="pct mono">·· ·</span>
+              <span class="badge draft">Brouillon</span>
+            </div>
+            <div class="proj-body">
+              <p class="name">Projet horizontal</p>
+              <p class="meta mono"><span>16:9</span><span>structure</span></p>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="tiktok-row">
+          <a href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">↗ Tous les montages sur TikTok — @tahzio</a>
+        </p>
+
+        <div class="endcap">
+          <h2>Un projet à monter ?</h2>
+          <p>Les DM TikTok sont le canal le plus rapide pour en parler.</p>
+          <a class="btn" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">Contacter 06h13 ↗</a>
+          <p class="foot">06h13 — studio de montage vidéo</p>
+        </div>
+
       </div>
-      <div class="wip">
-        <span class="dot">En montage</span>
-        <h3>Projet horizontal</h3>
-        <p>Dérushage terminé, structure en cours.</p>
+    </main>
+  </div>
+
+  <div class="timeline" aria-hidden="true">
+    <div class="tl-head">
+      <span class="tl-label mono">Session d'export — 06:13</span>
+      <span class="tl-label mono">00:42 / 01:18</span>
+    </div>
+    <div class="ruler mono"><span>00:00</span><span>00:20</span><span>00:40</span><span>01:00</span><span>01:18</span></div>
+    <div class="tracks">
+      <div class="playhead"></div>
+      <div class="track">
+        <div class="clip" style="flex:0 0 22%; background:var(--accent)">intro.mp4</div>
+        <div class="clip" style="flex:0 0 38%; background:var(--accent2)">b_roll_paris.mov</div>
+        <div class="clip" style="flex:0 0 18%; background:var(--accent)">short_01.mov</div>
+        <div class="clip" style="flex:0 0 14%; background:var(--accent2)">outro.mp4</div>
+      </div>
+      <div class="track">
+        <div class="clip" style="flex:0 0 14%; background:#6E7793"></div>
+        <div class="clip" style="flex:0 0 30%; background:#4A5268">sfx_whoosh.wav</div>
+        <div class="clip" style="flex:0 0 20%; background:#6E7793"></div>
+        <div class="clip" style="flex:0 0 28%; background:#4A5268">sous_titres.srt</div>
       </div>
     </div>
-  </section>
-
-  <section class="contact">
-    <h2>Un projet à monter ?</h2>
-    <p>Les DM TikTok sont le canal le plus rapide pour en parler.</p>
-    <a class="btn" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">Contacter 06h13 ↗</a>
-  </section>
-
-  <footer>06h13 — studio de montage vidéo</footer>
+  </div>
 
 </div>
+
+<script>
+(function(){
+  var el = document.getElementById('clock');
+  function tick(){
+    var d = new Date();
+    var h = String(d.getHours()).padStart(2,'0'), m = String(d.getMinutes()).padStart(2,'0');
+    el.textContent = h + ':' + m;
+  }
+  tick(); setInterval(tick, 15000);
+})();
+</script>
