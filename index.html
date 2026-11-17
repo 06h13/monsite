@@ -86,7 +86,7 @@ nav.navgroup{margin-bottom:18px}
 
 /* ---------- Contenu principal ---------- */
 .main{flex:1; min-width:0; overflow-x:hidden}
-.main-inner{max-width:1200px; margin:0; padding:26px 32px 60px}
+.main-inner{margin:0; padding:26px 32px 60px}
 
 .banner{
   border-radius:18px; padding:34px 30px; margin-bottom:22px; position:relative; overflow:hidden;
@@ -98,13 +98,13 @@ nav.navgroup{margin-bottom:18px}
   content:""; position:absolute; right:-40px; top:-60px; width:220px; height:220px; border-radius:50%;
   background:radial-gradient(circle, rgba(255,77,77,.4), transparent 70%);
 }
-.banner .bwrap{display:flex; align-items:center; gap:16px; position:relative}
+.banner .bwrap{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; position:relative; text-align:center}
 .banner .plus{
   width:42px; height:42px; border-radius:12px; background:rgba(10,13,20,.28); display:flex; align-items:center;
   justify-content:center; font-size:1.3rem; flex:none;
 }
 .banner h1{font-size:1.5rem}
-.banner p{margin:4px 0 0; font-size:.88rem; opacity:.85}
+.banner p{margin:0; font-size:.88rem; opacity:.85}
 
 .chips{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:34px}
 .chip{
