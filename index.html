@@ -35,8 +35,8 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0}
 .logo b{color:var(--accent)}
 
 .profile{
-  display:flex; align-items:center; gap:11px; padding:11px; border-radius:12px; background:var(--panel2);
-  border:1px solid var(--line); margin-bottom:8px;
+  display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:12px; background:var(--panel2);
+  border:1px solid var(--line); margin-bottom:6px;
 }
 .avatar{
   width:38px; height:38px; border-radius:50%; flex:none; overflow:hidden;
@@ -182,23 +182,6 @@ nav.navgroup{margin-bottom:18px}
 .social-link .stxt b{display:block; font-weight:600; font-size:.88rem}
 .social-link .stxt span{display:block; color:var(--dim); font-size:.78rem}
 
-/* ---------- Popup bibliothèques ---------- */
-.lib-modal{max-width:380px}
-.lib-list{display:flex; flex-direction:column; gap:8px; max-height:60vh; overflow-y:auto}
-.lib-link{
-  display:flex; align-items:center; gap:12px; padding:9px 10px; border-radius:11px; background:var(--panel2);
-  border:1px solid var(--line); text-decoration:none; color:var(--fg); font-size:.86rem;
-}
-.lib-link:hover{border-color:var(--accent)}
-.lib-link .lthumb{
-  width:52px; border-radius:8px; overflow:hidden; flex:none; position:relative; background:var(--bg2);
-}
-.lib-link .lthumb img{width:100%; height:100%; object-fit:cover; display:block}
-.lib-link.fmt-v .lthumb{aspect-ratio:9/16}
-.lib-link.fmt-h .lthumb{aspect-ratio:16/9}
-.lib-link .ltxt{font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.lib-empty{color:var(--dim); font-size:.84rem; padding:6px 2px}
-
 @media(max-width:860px){
   .sidebar{display:none}
   .topbar{display:flex}
@@ -239,7 +222,7 @@ nav.navgroup{margin-bottom:18px}
     <div class="plan"><span class="dot"></span> Disponible</div>
 
     <nav class="navgroup">
-      <a class="navitem active" href="#projects">
+      <a class="navitem active" id="navAllProjects" href="#projects">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="8" height="8" rx="1.5"/><rect x="13" y="4" width="8" height="8" rx="1.5"/><rect x="3" y="14" width="8" height="6" rx="1.5"/><rect x="13" y="14" width="8" height="6" rx="1.5"/></svg>
         Mes projets
       </a>
@@ -259,11 +242,11 @@ nav.navgroup{margin-bottom:18px}
 
     <nav class="navgroup">
       <p class="navlabel">Gestion</p>
-      <button class="navitem open-lib-v" type="button">
+      <button class="navitem filter-btn" data-fmt="v" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="7" y="2" width="10" height="20" rx="2"/></svg>
-        Bibliothèque Shorts
+        Shorts
       </button>
-      <button class="navitem open-lib-h" type="button">
+      <button class="navitem filter-btn" data-fmt="h" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
         Formats longs
       </button>
@@ -309,11 +292,11 @@ nav.navgroup{margin-bottom:18px}
       <div id="projects">
         <div class="sec-head">
           <h2>Mes projets</h2>
-          <span class="count mono">6</span>
+          <span class="count mono" id="projCount">6</span>
         </div>
         <div class="projects">
 
-          <a class="proj" href="https://youtu.be/ijZ-YIS3J0k" target="_blank" rel="noopener">
+          <a class="proj" data-fmt="h" href="https://youtu.be/ijZ-YIS3J0k" target="_blank" rel="noopener">
             <div class="thumb">
               <img src="https://i.ytimg.com/vi/ijZ-YIS3J0k/hqdefault.jpg" alt="" loading="lazy">
               <div class="scrim"></div>
@@ -326,7 +309,7 @@ nav.navgroup{margin-bottom:18px}
             </div>
           </a>
 
-          <a class="proj" href="https://www.youtube.com/shorts/dqSGj_CaK9E" target="_blank" rel="noopener">
+          <a class="proj" data-fmt="v" href="https://www.youtube.com/shorts/dqSGj_CaK9E" target="_blank" rel="noopener">
             <div class="thumb">
               <img src="https://i.ytimg.com/vi/dqSGj_CaK9E/hqdefault.jpg" alt="" loading="lazy">
               <div class="scrim"></div>
@@ -339,7 +322,7 @@ nav.navgroup{margin-bottom:18px}
             </div>
           </a>
 
-          <a class="proj" href="https://www.youtube.com/shorts/Nm1NrIEAGUY" target="_blank" rel="noopener">
+          <a class="proj" data-fmt="v" href="https://www.youtube.com/shorts/Nm1NrIEAGUY" target="_blank" rel="noopener">
             <div class="thumb">
               <img src="https://i.ytimg.com/vi/Nm1NrIEAGUY/hqdefault.jpg" alt="" loading="lazy">
               <div class="scrim"></div>
@@ -352,7 +335,7 @@ nav.navgroup{margin-bottom:18px}
             </div>
           </a>
 
-          <a class="proj" href="https://www.youtube.com/shorts/xA28zJRN3MM" target="_blank" rel="noopener">
+          <a class="proj" data-fmt="v" href="https://www.youtube.com/shorts/xA28zJRN3MM" target="_blank" rel="noopener">
             <div class="thumb">
               <img src="https://i.ytimg.com/vi/xA28zJRN3MM/hqdefault.jpg" alt="" loading="lazy">
               <div class="scrim"></div>
@@ -365,22 +348,25 @@ nav.navgroup{margin-bottom:18px}
             </div>
           </a>
 
-          <div class="proj">
-            <div class="thumb draft-thumb">
-              <span class="badge draft">Brouillon</span>
+          <a class="proj" data-fmt="v" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
+            <div class="thumb">
+              <img src="tahzio.jpg" alt="" loading="lazy">
+              <div class="scrim"></div>
+              <span class="badge live">Exporté</span>
+              <span class="play" aria-hidden="true">▶</span>
             </div>
             <div class="proj-cap">
-              <p class="name">Projet vertical</p>
-              <p class="meta mono"><span>9:16</span><span>étalonnage</span></p>
+              <p class="name">Tahzio</p>
+              <p class="meta mono"><span>9:16</span><span>TikTok</span></p>
             </div>
-          </div>
+          </a>
 
-          <div class="proj">
+          <div class="proj" data-fmt="h">
             <div class="thumb draft-thumb">
               <span class="badge draft">Brouillon</span>
             </div>
             <div class="proj-cap">
-              <p class="name">Projet horizontal</p>
+              <p class="name">Aneyaris - ?</p>
               <p class="meta mono"><span>16:9</span><span>structure</span></p>
             </div>
           </div>
@@ -415,46 +401,6 @@ nav.navgroup{margin-bottom:18px}
   </div>
 </div>
 
-<div class="social-overlay" id="libVOverlay">
-  <div class="social-modal lib-modal">
-    <button class="social-close" id="libVClose" type="button" aria-label="Fermer">✕</button>
-    <h3>Bibliothèque Shorts</h3>
-    <p class="sub">Tous les formats verticaux.</p>
-    <div class="lib-list">
-      <a class="lib-link fmt-v" href="https://www.youtube.com/shorts/dqSGj_CaK9E" target="_blank" rel="noopener">
-        <span class="lthumb"><img src="https://i.ytimg.com/vi/dqSGj_CaK9E/hqdefault.jpg" alt="" loading="lazy"></span>
-        <span class="ltxt">Les Anciens lâchez ça</span>
-      </a>
-      <a class="lib-link fmt-v" href="https://www.youtube.com/shorts/Nm1NrIEAGUY" target="_blank" rel="noopener">
-        <span class="lthumb"><img src="https://i.ytimg.com/vi/Nm1NrIEAGUY/hqdefault.jpg" alt="" loading="lazy"></span>
-        <span class="ltxt">Les Tontons sont Meilleurs que les Chefs Étoilés</span>
-      </a>
-      <a class="lib-link fmt-v" href="https://www.youtube.com/shorts/xA28zJRN3MM" target="_blank" rel="noopener">
-        <span class="lthumb"><img src="https://i.ytimg.com/vi/xA28zJRN3MM/hqdefault.jpg" alt="" loading="lazy"></span>
-        <span class="ltxt">Lâchez ça les Japonais on est meilleurs</span>
-      </a>
-      <a class="lib-link fmt-v" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
-        <span class="lthumb"><img src="tahzio.jpg" alt="" loading="lazy"></span>
-        <span class="ltxt">Tahzio</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<div class="social-overlay" id="libHOverlay">
-  <div class="social-modal lib-modal">
-    <button class="social-close" id="libHClose" type="button" aria-label="Fermer">✕</button>
-    <h3>Formats longs</h3>
-    <p class="sub">Tous les formats horizontaux.</p>
-    <div class="lib-list">
-      <a class="lib-link fmt-h" href="https://youtu.be/ijZ-YIS3J0k" target="_blank" rel="noopener">
-        <span class="lthumb"><img src="https://i.ytimg.com/vi/ijZ-YIS3J0k/hqdefault.jpg" alt="" loading="lazy"></span>
-        <span class="ltxt">Champion du MONDE de Sushi : Surcoté ? (ft Grim &amp; Theo)</span>
-      </a>
-    </div>
-  </div>
-</div>
-
 <script>
 (function(){
   var sidebar = document.getElementById('sidebar');
@@ -477,15 +423,35 @@ nav.navgroup{margin-bottom:18px}
   socialClose.addEventListener('click', function(){ toggleSocial(false); });
   socialOverlay.addEventListener('click', function(e){ if(e.target === socialOverlay) toggleSocial(false); });
 
-  function wireOverlay(overlayEl, closeEl, openSelector){
-    function set(open){ overlayEl.classList.toggle('open', open); }
-    document.querySelectorAll(openSelector).forEach(function(btn){
-      btn.addEventListener('click', function(){ toggle(false); set(true); });
+  var projectEls = Array.prototype.slice.call(document.querySelectorAll('#projects .proj'));
+  var projCount = document.getElementById('projCount');
+  var navAll = document.getElementById('navAllProjects');
+  var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));
+
+  function applyFilter(fmt){
+    var visible = 0;
+    projectEls.forEach(function(p){
+      var show = !fmt || p.getAttribute('data-fmt') === fmt;
+      p.style.display = show ? '' : 'none';
+      if (show) visible++;
     });
-    closeEl.addEventListener('click', function(){ set(false); });
-    overlayEl.addEventListener('click', function(e){ if(e.target === overlayEl) set(false); });
+    if (projCount) projCount.textContent = visible;
+    if (navAll) navAll.classList.toggle('active', !fmt);
+    filterBtns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-fmt') === fmt);
+    });
   }
-  wireOverlay(document.getElementById('libVOverlay'), document.getElementById('libVClose'), '.open-lib-v');
-  wireOverlay(document.getElementById('libHOverlay'), document.getElementById('libHClose'), '.open-lib-h');
+
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      toggle(false);
+      applyFilter(btn.getAttribute('data-fmt'));
+      document.getElementById('projects').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  navAll.addEventListener('click', function(){
+    applyFilter(null);
+  });
 })();
 </script>
