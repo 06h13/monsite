@@ -142,6 +142,17 @@ nav.navgroup{margin-bottom:18px}
 }
 .badge.live{color:#FF8A8A}
 .badge.draft{color:var(--accent2)}
+/* Dossier (ex. Tahzio) : deux feuilles décalées derrière la vignette */
+.proj-dossier{position:relative}
+.proj-dossier .thumb{overflow:visible; z-index:1}
+.proj-dossier .thumb img,.proj-dossier .thumb .scrim{border-radius:11px}
+.proj-dossier .thumb::before,.proj-dossier .thumb::after{
+  content:""; position:absolute; inset:0; border-radius:12px; border:1px solid var(--line2); background:#160B0D; z-index:-1;
+}
+.proj-dossier .thumb::before{transform:translate(6px,-6px)}
+.proj-dossier .thumb::after{transform:translate(12px,-12px); opacity:.55}
+.proj-dossier:hover .thumb::before,.proj-dossier:hover .thumb::after{border-color:var(--accent)}
+.badge.folder{color:#FFB3B3}
 .thumb.draft-thumb{
   background:repeating-linear-gradient(45deg, rgba(232,34,47,.1) 0 10px, transparent 10px 20px), linear-gradient(155deg,#1E0C0E,#0A0808);
 }
@@ -352,16 +363,16 @@ nav.navgroup{margin-bottom:18px}
             </div>
           </a>
 
-          <a class="proj" data-fmt="v" href="https://www.tiktok.com/@tahzio" target="_blank" rel="noopener">
+          <a class="proj proj-dossier" data-fmt="v" href="tahzio/">
             <div class="thumb">
               <img src="tahzio.jpg" alt="" loading="lazy">
               <div class="scrim"></div>
-              <span class="badge live">Exporté</span>
-              <span class="play" aria-hidden="true">▶</span>
+              <span class="badge folder">Dossier · 516 vidéos</span>
+              <span class="play" aria-hidden="true">→</span>
             </div>
             <div class="proj-cap">
-              <p class="name">Tahzio</p>
-              <p class="meta mono"><span>9:16</span><span>TikTok</span></p>
+              <p class="name">Tahzio · Radio France</p>
+              <p class="meta mono"><span>9:16</span><span>TikTok</span><span>516 vidéos</span></p>
             </div>
           </a>
 
